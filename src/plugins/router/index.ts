@@ -14,3 +14,5 @@ const setup = (app: App) => {
 }
 
 export { setup }
+
+export default router
