@@ -1,4 +1,4 @@
-import { getApi, postApi } from "@/utils/request";
+import { getApi, postApi, patchApi, deleteApi } from "@/utils/request";
 
 
 /**
@@ -18,4 +18,26 @@ export const addRoleApi = (data: any) => {
  */
 export const queryRoleApi = (params: any) => {
     return getApi('/role', params)
+}
+
+
+/**
+ * 修改角色
+ * @param id 
+ * @param data 
+ * @returns 
+ */
+export const editRoleApi = (id: string, data: any) => {
+    return patchApi(`/role/${id}`, data)
+}
+
+
+
+/**
+ * 删除角色
+ * @param id 
+ * @returns 
+ */
+export const deleteRoleApi = (id: string) => {
+    return deleteApi(`/role/${id}`)
 }

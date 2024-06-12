@@ -73,4 +73,25 @@ const postApi = (url: string, data: any) => {
     return http.post(url, data)
 }
 
-export { getApi, postApi }
+/**
+ * patch请求
+ * @param url 
+ * @param data 
+ * @returns 
+ */
+const patchApi = (url: string, data: any) => {
+    return http.patch(url, data)
+}
+
+
+/**
+ * delete请求
+ * @param url 
+ * @param data 
+ * @returns 
+ */
+const deleteApi = (url: string) => {
+    return http.delete(url)
+}
+
+export { getApi, postApi, patchApi, deleteApi }
