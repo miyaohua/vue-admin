@@ -19,7 +19,9 @@
     <div class="p-5 bg-white mt-5">
         <!-- 操作按钮 -->
         <div class="mb-5">
-            <a-button type="primary" @click="addRoleFn">新增角色</a-button>
+            <a-tooltip title="新增角色">
+                <a-button type="primary" @click="addRoleFn">新增角色</a-button>
+            </a-tooltip>
         </div>
         <!-- 表格 -->
         <a-table bordered :pagination="paginationConfig" :columns="columns" :data-source="data" :loading="isLoading"
@@ -33,33 +35,43 @@
 
                 <template v-else-if="column.key === 'action'">
                     <span>
-                        <a-button size="small" @click="edit(record)" type="link">修改</a-button>
+                        <a-tooltip title="修改角色">
+                            <a-button size="small" @click="edit(record)" type="link">修改</a-button>
+                        </a-tooltip>
+
                         <a-divider type="vertical" />
-                        <a-button size="small" @click="edit(record)" type="link">角色权限</a-button>
+
+                        <a-tooltip title="设置角色权限">
+                            <a-button size="small" @click="setPermission(record)" type="link">角色权限</a-button>
+                        </a-tooltip>
+
                         <a-divider type="vertical" />
-                        <a-button size="small" @click="del(record)" type="link" danger>删除</a-button>
+
+                        <a-popconfirm title="此操作将永久删除该角色" ok-text="确认" cancel-text="取消" @confirm="del(record)">
+                            <a-tooltip title="删除角色">
+                                <a-button size="small" type="link" danger>删除</a-button>
+                            </a-tooltip>
+                        </a-popconfirm>
+
                     </span>
                 </template>
             </template>
         </a-table>
     </div>
+    <!-- 新增 / 修改 -->
     <addEditRole ref="addRoleRef" @queryAllRole="queryAllRole" />
-    <!-- 删除角色弹窗 -->
-    <a-modal ok-text="确认" cancel-text="取消" :maskClosable="false" centered v-model:open="isDel" title="删除角色"
-        :confirm-loading="isDelLoading" @ok="delFn">
-        <p class="mt-8">此操作将永久删除该角色</p>
-    </a-modal>
-
     <!-- 权限 -->
-    
+    <permission ref="permissionRef" @queryAllRole="queryAllRole" />
 </template>
 
 
 <script setup lang="ts">
+import addEditRole from './addEditRole.vue'
+import permission from './permission.vue'
+
 import { queryRoleApi, deleteRoleApi } from '@/apis/role'
 import { reactive, ref, onMounted } from 'vue';
 import { columns } from './tableconfig'
-import addEditRole from './addEditRole.vue'
 import { message } from 'ant-design-vue';
 
 onMounted(() => {
@@ -131,22 +143,19 @@ const edit = (record: any) => {
     addRoleRef.value.openDialog(record)
 }
 
-const del = ({ id }: any) => {
-    delId.value = id
-    isDel.value = true;
-
-}
-
-const delId = ref('')
-const isDel = ref<boolean>(false)
-const isDelLoading = ref<boolean>(false)
-const delFn = async () => {
-    const res: any = await deleteRoleApi(delId.value)
+const del = async ({ id }: any) => {
+    const res: any = await deleteRoleApi(id)
     if (res?.code == 200) {
         message.success('删除成功')
         queryAllRole();
-        isDel.value = false;
     }
+}
+
+
+const permissionRef = ref<any>(null)
+
+const setPermission = (record: any) => {
+    permissionRef.value.openDialog(record);
 }
 
 </script>

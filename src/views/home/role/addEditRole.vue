@@ -15,7 +15,7 @@
 
 <script setup lang="ts">
 import { addRoleApi, editRoleApi } from '@/apis/role'
-import { reactive, ref, defineExpose } from "vue";
+import { reactive, ref } from "vue";
 import { message } from 'ant-design-vue'
 const emit = defineEmits(['queryAllRole'])
 

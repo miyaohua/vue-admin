@@ -41,3 +41,14 @@ export const editRoleApi = (id: string, data: any) => {
 export const deleteRoleApi = (id: string) => {
     return deleteApi(`/role/${id}`)
 }
+
+
+
+/**
+ * 根据权限分组获取所有权限
+ * @param data 
+ * @returns 
+ */
+export const getAllPermissionGroupApi = (data = {}) => {
+    return postApi('/permission/permissionByGroup', data)
+}
