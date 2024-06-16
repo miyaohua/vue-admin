@@ -43,7 +43,7 @@ http.interceptors.response.use(function (response) {
             message.error('请求失败，请稍后再试！');
             break;
         default:
-            message.error('请求失败，请稍后再试！');
+            message.error(error?.response?.data?.message || '请求失败，请稍后再试！');
             break;
     }
     // 对响应错误做点什么

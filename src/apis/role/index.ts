@@ -52,3 +52,14 @@ export const deleteRoleApi = (id: string) => {
 export const getAllPermissionGroupApi = (data = {}) => {
     return postApi('/permission/permissionByGroup', data)
 }
+
+
+
+/**
+ * 为角色分配权限
+ * @param data 
+ * @returns 
+ */
+export const assingPermissionApi = (data: any) => {
+    return postApi('/permission/assingPermission', data)
+}

@@ -19,9 +19,7 @@
     <div class="p-5 bg-white mt-5">
         <!-- 操作按钮 -->
         <div class="mb-5">
-            <a-tooltip title="新增角色">
-                <a-button type="primary" @click="addRoleFn">新增角色</a-button>
-            </a-tooltip>
+            <a-button type="primary" @click="addRoleFn">新增角色</a-button>
         </div>
         <!-- 表格 -->
         <a-table bordered :pagination="paginationConfig" :columns="columns" :data-source="data" :loading="isLoading"
@@ -135,7 +133,7 @@ const changeFn = (pagination: any) => {
 
 const addRoleRef = ref<any>(null)
 const addRoleFn = () => {
-    addRoleRef.value.openDialog();
+    addRoleRef.value.openDialog(null);
 }
 
 

@@ -1,6 +1,6 @@
 <template>
-  <a-modal ok-text="确认" cancel-text="取消" :maskClosable="false" centered v-model:open="visible"
-    :title="editId ? '修改角色' : '新增角色'" @ok="handleOk" @cancel="cancelFn">
+  <a-modal ok-text="确认" cancel-text="取消" centered v-model:open="visible" :title="editId ? '修改角色' : '新增角色'"
+    @ok="handleOk" @cancel="cancelFn">
     <a-form class="mt-8" ref="formRef" :model="formState" name="basic" autocomplete="off">
       <a-form-item label="角色名称" name="name" :rules="[{ required: true, message: '请输入角色名称' }]">
         <a-input v-model:value="formState.name" />
@@ -35,7 +35,8 @@ const formState = reactive<FormState>({
 const editId = ref('')
 const cancelFn = () => {
   formRef.value.clearValidate();
-  formRef.value.resetFields();
+  formState.name = '';
+  formState.desc = '';
   editId.value = ''
   visible.value = false;
 }
